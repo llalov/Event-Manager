@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using EventManager.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace EventManager.Web.Controllers
 {
@@ -15,15 +14,7 @@ namespace EventManager.Web.Controllers
                 .Events
                 .OrderBy(e => e.StartDateTime)
                 .Where(e => e.isPublic)
-                .Select(e => new EventViewModel()
-                {
-                    Id = e.Id,
-                    Title = e.Title,
-                    StartDateTime = e.StartDateTime,
-                    Duration = e.Duration,
-                    Author = e.Author,
-                    Location = e.Location
-                });
+                .Select(EventViewModel.ViewModel);
 
             var upcomingEvents = events.Where(e => e.StartDateTime > DateTime.Now);
 
@@ -34,6 +25,23 @@ namespace EventManager.Web.Controllers
                 UpcomingEvents = upcomingEvents,
                 PassedEvents = passedEvents
             });
+        }
+
+        public ActionResult EventDetailsById(int id)
+        {
+            var currentUserId = this.User.Identity.GetUserId();
+            var isAdmin = this.IsAdmin();
+            var eventDetails = this.db.Events
+                .Where(e => e.Id == id)
+                .Where(e => e.isPublic || isAdmin || (e.AuthorId != null && e.AuthorId == currentUserId))
+                .Select(EventDetailsViewModel.ViewModel)
+                .FirstOrDefault();
+
+            var isOwner = (eventDetails != null && eventDetails.AuthorId != null &&
+                           eventDetails.AuthorId == currentUserId);
+            this.ViewBag.CanEdit = isOwner || isAdmin;
+
+            return this.PartialView("_EventDetailsPartial", eventDetails);
         }
     }
 }
