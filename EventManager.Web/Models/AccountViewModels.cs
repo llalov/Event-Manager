@@ -49,6 +49,10 @@ namespace EventManager.Web.Models
     public class LoginViewModel
     {
         [Required]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -64,6 +68,10 @@ namespace EventManager.Web.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
