@@ -339,6 +339,7 @@
     <Content Include="Views\Shared\DisplayTemplates\EventViewModel.cshtml" />
     <Content Include="Views\Home\_EventDetailsPartial.cshtml" />
     <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
     <None Include="Views\Events\My.cshtml" />
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Shared\_Events.cshtml" />

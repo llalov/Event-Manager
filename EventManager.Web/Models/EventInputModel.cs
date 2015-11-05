@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using EventManager.Models;
 
 namespace EventManager.Web.Models
 {
@@ -24,5 +26,21 @@ namespace EventManager.Web.Models
         [Display( Name = "Is Public?")]
         public bool IsPublic { get; set; }
 
+        public static Expression<Func<Event, EventInputModel>> Create
+        {
+            get
+            {
+                return x => new EventInputModel()
+                {
+                    Title = x.Title,
+                    StartDateTime = x.StartDateTime,
+                    Duration = x.Duration,
+                    Description = x.Description,
+                    Location = x.Location,
+                    IsPublic = x.isPublic
+                };
+            }
+        }
+       
     }
 }
