@@ -1,5 +1,5 @@
 ﻿@model EventManager.Web.Models.EventDetailsViewModel
-    
+
 @if (Model.Description != null)
 {
     <div class="descrption">
@@ -8,7 +8,7 @@
 }
 @if (Model.Comments.Any())
 {
-    @:Comments: 
+    @:Comments:
     <ul>
         @foreach (var comment in Model.Comments)
         {
@@ -26,9 +26,23 @@ else
 {
     <p>No comments</p>
 }
+
+<hr>
 @if (ViewBag.CanEdit)
 {
-   @Html.ActionLink("Edit", "Edit", "Events", new {id = Model.Id}, new {@class = "btn btn-default"})
+    @Html.ActionLink("Edit", "Edit", "Events", new { id = Model.Id }, new { @class = "btn btn-default" })
     <span></span>
     @Html.ActionLink("Delete", "Delete", "Events", new { id = Model.Id }, new { @class = "btn btn-default" })
 }
+
+<hr>
+<div id="event-comments-@Model.Id">
+    @Ajax.ActionLink("Add comment >>", "Create", "Comments",
+                new { id = @Model.Id },
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "event-comments-" + Model.Id
+                }, new { @class = "btn btn-default" }
+        )
+</div>

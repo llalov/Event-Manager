@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using EventManager.Models;
+using EventManager.Web.Extensions;
 using EventManager.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -43,5 +45,13 @@ namespace EventManager.Web.Controllers
 
             return this.PartialView("_EventDetailsPartial", eventDetails);
         }
+
+        /*public ActionResult AddCommentById(int id)
+        {
+            var currentUserId = this.User.Identity.GetUserId();
+
+        } */
+        
+       
     }
 }

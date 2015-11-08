@@ -26,21 +26,19 @@ namespace EventManager.Web.Models
         [Display( Name = "Is Public?")]
         public bool IsPublic { get; set; }
 
-        public static Expression<Func<Event, EventInputModel>> Create
+        public static EventInputModel CreateFromEvent (Event e)
         {
-            get
-            {
-                return x => new EventInputModel()
+            
+                return new EventInputModel()
                 {
-                    Title = x.Title,
-                    StartDateTime = x.StartDateTime,
-                    Duration = x.Duration,
-                    Description = x.Description,
-                    Location = x.Location,
-                    IsPublic = x.isPublic
+                    Title = e.Title,
+                    StartDateTime = e.StartDateTime,
+                    Duration = e.Duration,
+                    Description = e.Description,
+                    Location = e.Location,
+                    IsPublic = e.isPublic
                 };
             }
         }
        
     }
-}

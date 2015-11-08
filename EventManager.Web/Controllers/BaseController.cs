@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 
 namespace EventManager.Web.Controllers
 {
+    [ValidateInput(false)]
     public class BaseController : Controller
     {
         protected ApplicationDbContext db = new ApplicationDbContext();
